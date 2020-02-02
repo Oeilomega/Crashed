@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Dirt/DirtAutoTile.tres" type="TileSet" id=1]
+[ext_resource path="res://Hud/Hud.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Fire/Fire.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Spike/Spike.tscn" type="PackedScene" id=5]
+
+[node name="World" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( -8, 200 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( -312, 8 )
+tile_set = ExtResource( 1 )
+format = 1
+tile_data = PoolIntArray( -1, 0, 5, -65532, 0, 196608, -65531, 0, 196610, -65526, 0, 5, 65535, 0, 65541, 10, 0, 65541, 131071, 0, 65541, 65538, 0, 196613, 65543, 0, 196613, 65546, 0, 65541, 196607, 0, 65541, 131082, 0, 65541, 262143, 0, 8, 196608, 0, 2, 196617, 0, 1, 196618, 0, 11, 327679, 0, 65537, 262144, 0, 65547, 262145, 0, 196609, 262146, 0, 196609, 262147, 0, 196609, 262148, 0, 196609, 262149, 0, 196609, 262150, 0, 196609, 262151, 0, 196609, 262152, 0, 196609, 262153, 0, 65544, 262154, 0, 65538 )
+
+[node name="Hud" parent="." instance=ExtResource( 2 )]
+
+[node name="Fire" parent="." instance=ExtResource( 4 )]
+position = Vector2( -88, 208 )
+scale = Vector2( 2, 2 )
+
+[node name="Spike" parent="." instance=ExtResource( 5 )]
+position = Vector2( 88, 256 )
+z_index = -1
+[connection signal="ready" from="Hud" to="Player" method="_on_Hud_ready"]
+[connection signal="body_entered" from="Fire" to="Player" method="_on_body_entered"]
+[connection signal="body_exited" from="Fire" to="Player" method="_on_body_exited"]
+[connection signal="body_entered" from="Spike" to="Player" method="_on_body_entered"]
+[connection signal="body_exited" from="Spike" to="Player" method="_on_body_exited"]
